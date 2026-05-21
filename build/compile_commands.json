@@ -1,0 +1,27 @@
+[
+{
+  "directory": "/home/songjin/pomodoro-timer/build",
+  "command": "/usr/bin/c++ -DWXUSINGDLL -D_FILE_OFFSET_BITS=64 -D__WXGTK3__ -D__WXGTK__ -isystem /usr/local/lib/wx/include/gtk3-unicode-3.2 -isystem /usr/local/include/wx-3.2  -pthread -std=gnu++17 -o CMakeFiles/PomodoroTimer.dir/src/app.cpp.o -c /home/songjin/pomodoro-timer/src/app.cpp",
+  "file": "/home/songjin/pomodoro-timer/src/app.cpp"
+},
+{
+  "directory": "/home/songjin/pomodoro-timer/build",
+  "command": "/usr/bin/c++ -DWXUSINGDLL -D_FILE_OFFSET_BITS=64 -D__WXGTK3__ -D__WXGTK__ -isystem /usr/local/lib/wx/include/gtk3-unicode-3.2 -isystem /usr/local/include/wx-3.2  -pthread -std=gnu++17 -o CMakeFiles/PomodoroTimer.dir/src/MainFrame.cpp.o -c /home/songjin/pomodoro-timer/src/MainFrame.cpp",
+  "file": "/home/songjin/pomodoro-timer/src/MainFrame.cpp"
+},
+{
+  "directory": "/home/songjin/pomodoro-timer/build",
+  "command": "/usr/bin/c++ -DWXUSINGDLL -D_FILE_OFFSET_BITS=64 -D__WXGTK3__ -D__WXGTK__ -isystem /usr/local/lib/wx/include/gtk3-unicode-3.2 -isystem /usr/local/include/wx-3.2  -pthread -std=gnu++17 -o CMakeFiles/PomodoroTimer.dir/src/PomodoroCanvas.cpp.o -c /home/songjin/pomodoro-timer/src/PomodoroCanvas.cpp",
+  "file": "/home/songjin/pomodoro-timer/src/PomodoroCanvas.cpp"
+},
+{
+  "directory": "/home/songjin/pomodoro-timer/build",
+  "command": "/usr/bin/c++ -DWXUSINGDLL -D_FILE_OFFSET_BITS=64 -D__WXGTK3__ -D__WXGTK__ -isystem /usr/local/lib/wx/include/gtk3-unicode-3.2 -isystem /usr/local/include/wx-3.2  -pthread -std=gnu++17 -o CMakeFiles/PomodoroTimer.dir/src/Timer.cpp.o -c /home/songjin/pomodoro-timer/src/Timer.cpp",
+  "file": "/home/songjin/pomodoro-timer/src/Timer.cpp"
+},
+{
+  "directory": "/home/songjin/pomodoro-timer/build",
+  "command": "/usr/bin/c++ -DWXUSINGDLL -D_FILE_OFFSET_BITS=64 -D__WXGTK3__ -D__WXGTK__ -isystem /usr/local/lib/wx/include/gtk3-unicode-3.2 -isystem /usr/local/include/wx-3.2  -pthread -std=gnu++17 -o CMakeFiles/PomodoroTimer.dir/src/Task.cpp.o -c /home/songjin/pomodoro-timer/src/Task.cpp",
+  "file": "/home/songjin/pomodoro-timer/src/Task.cpp"
+}
+]

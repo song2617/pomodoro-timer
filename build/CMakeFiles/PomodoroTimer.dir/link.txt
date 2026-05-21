@@ -1,0 +1,1 @@
+/usr/bin/c++  -pthread CMakeFiles/PomodoroTimer.dir/src/app.cpp.o CMakeFiles/PomodoroTimer.dir/src/MainFrame.cpp.o CMakeFiles/PomodoroTimer.dir/src/PomodoroCanvas.cpp.o CMakeFiles/PomodoroTimer.dir/src/Timer.cpp.o CMakeFiles/PomodoroTimer.dir/src/Task.cpp.o -o PomodoroTimer   -L/usr/local/lib  -Wl,-rpath,/usr/local/lib -L/usr/local/lib -pthread -lwx_gtk3u_core-3.2 -lwx_baseu-3.2 
