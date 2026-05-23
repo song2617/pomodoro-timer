@@ -6,7 +6,7 @@
 #include <vector>
 #include <wx/statline.h>
 
-//#include "PomodoroCanvas.hpp"
+#include "PomodoroCanvas.hpp"
 #include "Task.hpp"
 #include "Timer.hpp"
 
@@ -41,18 +41,18 @@ private:
 
     void BuildLeftPanel(wxSplitterWindow* splitter);
     void BuildRightPanel(wxSplitterWindow* splitter);
-/*
+
     void OnAddTask(wxCommandEvent& evt);
     void OnDeleteTask(wxCommandEvent& evt);
     void OnSelectTask(wxCommandEvent& evt);
-    void OnDoubleClickTask(wxCommandEvent& evt);
-    void OnCompleteTask(wxCommandEvent& evt);
+    //void OnDoubleClickTask(wxCommandEvent& evt);
+    void OnCompleteTask(wxCommandEvent& evt);       void UpdateTaskDone();
     void OnStartPause(wxCommandEvent& evt);
     void OnReset(wxCommandEvent& evt);
     void OnTimer(wxTimerEvent& evt);//
     void OnHistory(wxCommandEvent& evt);
     void OnClose(wxCloseEvent& evt);//history vorbeispeichern beim zumachen
-*/
+
 };
 
 }

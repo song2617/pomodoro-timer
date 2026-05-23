@@ -6,7 +6,7 @@
 namespace pomodoro{
 class App : public wxApp {
 public:
-    bool Oninit();
+    bool OnInit();
 
 };
 }

@@ -12,7 +12,7 @@ MainFrame::MainFrame(const wxString& title)
         splitter->SplitVertically(left_panel_, right_panel_, 265);
         splitter->SetMinimumPaneSize(265);
 
-        //Bind(wxEVT_CLOSE_WINDOW, &MainFrame::OnClose, this);//"X"drücken. es ist von system definiert, kein Button ist nötig.
+        Bind(wxEVT_CLOSE_WINDOW, &MainFrame::OnClose, this);//"X"drücken. es ist von system definiert, kein Button ist nötig.
     
 }
 
@@ -55,11 +55,11 @@ void MainFrame::BuildLeftPanel(wxSplitterWindow* splitter){
     sizer->Add(yesterday_sizer, 0, wxALL, 14);
 
     //binden
-     //add_btn_->Bind(wxEVT_BUTTON, &MainFrame::OnAddTask, this);
-     //task_list_->Bind(wxEVT_LISTBOX, &MainFrame::OnSelectTask, this);
+     add_btn_->Bind(wxEVT_BUTTON, &MainFrame::OnAddTask, this);
+     task_list_->Bind(wxEVT_LISTBOX, &MainFrame::OnSelectTask, this);
      //task_list_->Bind(wxEVT_LISTBOX_DCLICK,&MainFrame::OnDoubleClickTask, this);
-     //task_list_->Bind(wxEVT_CHECKLISTBOX, &MainFrame::OnCompleteTask, this);
-     //delete_btn_->Bind(wxEVT_BUTTON, &MainFrame::OnDeleteTask, this);
+     task_list_->Bind(wxEVT_CHECKLISTBOX, &MainFrame::OnCompleteTask, this);
+     delete_btn_->Bind(wxEVT_BUTTON, &MainFrame::OnDeleteTask, this);
 
      left_panel_->SetSizer(sizer);
 }
@@ -130,12 +130,64 @@ void MainFrame::BuildRightPanel(wxSplitterWindow* splitter){
     sizer->Add(stats_sizer, 0, wxEXPAND | wxALL, 14);
 
     //binden
-    //history_btn_->Bind(wxEVT_BUTTON, &MainFrame::OnHistory, this);
-    //start_pause_btn_->Bind(wxEVT_BUTTON, &MainFrame::OnStartPause, this);
-    //reset_btn_->Bind(wxEVT_BUTTON, &MainFrame::OnReset, this);
+    history_btn_->Bind(wxEVT_BUTTON, &MainFrame::OnHistory, this);
+    start_pause_btn_->Bind(wxEVT_BUTTON, &MainFrame::OnStartPause, this);
+    reset_btn_->Bind(wxEVT_BUTTON, &MainFrame::OnReset, this);
 
     right_panel_->SetSizer(sizer);
 
 }
+
+    //event-handle funktionen
+    void MainFrame::OnAddTask(wxCommandEvent& evt){
+        wxString name = task_input_->GetValue().Trim();
+        if(name.IsEmpty()) return;//wx-spezifische leer-kontrolle von wxstring
+        task_list_->Append(name);
+        task_.push_back(Task(name.ToStdString()));
+        task_input_->Clear();
+    };
+
+    void MainFrame::OnDeleteTask(wxCommandEvent& evt){
+        int sel = task_list_->GetSelection();
+        if(sel == wxNOT_FOUND) return; //od. -1
+        task_list_->Delete(sel);
+        task_.erase(task_.begin()+sel);
+        selected_task_ = -1;
+    };
+    void MainFrame::OnSelectTask(wxCommandEvent& evt){
+        selected_task_ = task_list_->GetSelection(); // ausgewähltes index bekommen
+    };
+ 
+    void MainFrame::OnCompleteTask(wxCommandEvent& evt){
+        int sel = evt.GetInt();//index von checklistbox.evt bekommen mit Anhaken
+        bool cheked = task_list_->IsChecked(sel);
+        task_[sel].set_done(cheked);
+        UpdateTaskDone();//statistik aktuallisieren
+
+    };
+
+    void MainFrame::UpdateTaskDone(){
+        int done = 0;
+        for(const auto& t: task_){
+            if(t.is_done()==true) done++;
+        }
+        tasks_done_val_->SetLabel(wxString(std::to_string(done)+"/"+std::to_string(task_.size())));//wxString(arg) ist eine funktion, andere string-->wxString umwandeln
+    }
+
+    void MainFrame::OnStartPause(wxCommandEvent& evt){
+        if(start_pause_btn_->GetLabel()== "Start"){
+            start_pause_btn_->SetLabel("Pause");
+            timer_.Start();
+        }else if(start_pause_btn_->GetLabel()=="Pause"){
+            start_pause_btn_->SetLabel("Resume");
+            timer_.Pause();
+        }else{
+            start_pause_btn_->SetLabel("Pause");
+            timer_.Resume();
+        }
+    }
+    void MainFrame::OnReset(wxCommandEvent& evt);
+    void MainFrame::OnTimer(wxTimerEvent& evt);//
+    void MainFrame::OnHistory(wxCommandEvent& evt);
 }
 

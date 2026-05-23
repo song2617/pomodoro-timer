@@ -2,11 +2,11 @@
 #include "MainFrame.hpp"
 
 namespace pomodoro{
-bool App::Oninit(){
+bool App::OnInit(){
     MainFrame* frame = new MainFrame("PomodoroTimer");
-    //frame->SetClientSize(700,560);
-    //frame->Center();
-    //frame->Show();
+    frame->SetClientSize(700,560);
+    frame->Center();
+    frame->Show();
     return true;
 }
 }

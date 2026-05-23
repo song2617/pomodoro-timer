@@ -479,5 +479,6 @@ CMakeFiles/PomodoroTimer.dir/src/MainFrame.cpp.o: \
  /usr/local/include/wx-3.2/wx/generic/splitter.h \
  /usr/local/include/wx-3.2/wx/statline.h \
  /usr/local/include/wx-3.2/wx/gtk/statline.h \
+ /home/songjin/pomodoro-timer/src/PomodoroCanvas.hpp \
  /home/songjin/pomodoro-timer/src/Task.hpp \
  /home/songjin/pomodoro-timer/src/Timer.hpp
