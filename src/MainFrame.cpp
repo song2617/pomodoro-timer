@@ -186,7 +186,9 @@ void MainFrame::BuildRightPanel(wxSplitterWindow* splitter){
             timer_.Resume();
         }
     }
-    void MainFrame::OnReset(wxCommandEvent& evt);
+    void MainFrame::OnReset(wxCommandEvent& evt){
+        timer_.Reset();
+    };
     void MainFrame::OnTimer(wxTimerEvent& evt);//
     void MainFrame::OnHistory(wxCommandEvent& evt);
 }
