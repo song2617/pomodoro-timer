@@ -5,6 +5,7 @@
 #include <wx/splitter.h>
 #include <vector>
 #include <wx/statline.h>
+#include <fstream> //für history einschreiben
 
 #include "PomodoroCanvas.hpp"
 #include "Task.hpp"
@@ -25,8 +26,7 @@ private:
 
     wxPanel* right_panel_;
 
-    //PomodoroCanvas* canvas_; 
-    wxPanel* canvas_;
+    PomodoroCanvas* canvas_; //Bereich::kreis mit untere pünkte
     
     wxStaticText* state_label_;
     wxButton* start_pause_btn_;
@@ -35,12 +35,15 @@ private:
     wxStaticText* today_val_;
     wxStaticText* tasks_done_val_;
 
+    wxTimer* wx_timer_;
     Timer timer_;
     std::vector<Task> task_;
     int selected_task_ = -1;//0,1,2,3...
 
     void BuildLeftPanel(wxSplitterWindow* splitter);
     void BuildRightPanel(wxSplitterWindow* splitter);
+
+    void CheckNewDay();//nächsten tag leert sich die tasklist
 
     void OnAddTask(wxCommandEvent& evt);
     void OnDeleteTask(wxCommandEvent& evt);
@@ -50,7 +53,7 @@ private:
     void OnStartPause(wxCommandEvent& evt);
     void OnReset(wxCommandEvent& evt);
     void OnTimer(wxTimerEvent& evt);//
-    void OnHistory(wxCommandEvent& evt);
+    void OnHistory(wxCommandEvent& evt);   std::vector<int> LoadHistory();//Poromodo von 7 tagen
     void OnClose(wxCloseEvent& evt);//history vorbeispeichern beim zumachen
 
 };

@@ -11,6 +11,11 @@ MainFrame::MainFrame(const wxString& title)
         BuildRightPanel(splitter);
         splitter->SplitVertically(left_panel_, right_panel_, 265);
         splitter->SetMinimumPaneSize(265);
+        CheckNewDay();//beim nächsten tag clear die tasklist
+
+        wx_timer_ = new wxTimer(this);
+        wx_timer_->Bind(wxEVT_TIMER, &MainFrame::OnTimer, this);
+        wx_timer_->Start(1000);
 
         Bind(wxEVT_CLOSE_WINDOW, &MainFrame::OnClose, this);//"X"drücken. es ist von system definiert, kein Button ist nötig.
     
@@ -71,10 +76,10 @@ void MainFrame::BuildRightPanel(wxSplitterWindow* splitter){
 
     //obere zeile
     wxBoxSizer* top_sizer = new wxBoxSizer(wxHORIZONTAL);
-    state_label_ = new wxStaticText(right_panel_, wxID_ANY, "work-25:00");
-    wxStaticText* legend_work  = new wxStaticText(right_panel_, wxID_ANY, "● work");   // Rote Legende für Arbeitszeit
-    wxStaticText* legend_short = new wxStaticText(right_panel_, wxID_ANY, "● short");  // Grüne Legende für kurze Pause
-    wxStaticText* legend_long  = new wxStaticText(right_panel_, wxID_ANY, "● long");   // Blaue Legende für lange Pause
+    state_label_ = new wxStaticText(right_panel_, wxID_ANY, "Work-25:00");
+    wxStaticText* legend_work  = new wxStaticText(right_panel_, wxID_ANY, "● Work");   // Rote Legende für Arbeitszeit
+    wxStaticText* legend_short = new wxStaticText(right_panel_, wxID_ANY, "● Short");  // Grüne Legende für kurze Pause
+    wxStaticText* legend_long  = new wxStaticText(right_panel_, wxID_ANY, "● Long");   // Blaue Legende für lange Pause
     legend_work->SetForegroundColour(wxColour(226, 75, 74));                            // Rote Farbe für Arbeitszeit
     legend_short->SetForegroundColour(wxColour(99, 153, 34));                           // Grüne Farbe für kurze Pause
     legend_long->SetForegroundColour(wxColour(55, 138, 221));                           // Blaue Farbe für lange Pause
@@ -89,8 +94,8 @@ void MainFrame::BuildRightPanel(wxSplitterWindow* splitter){
     sizer->Add(top_sizer, 0, wxEXPAND | wxTOP, 14);             // Blaue Legende, 6px Abstand links
 
     // Canvas-Platzhalter
-    //canvas_ = new PomodoroCanvas(right_panel_);
-    canvas_ = new wxPanel(right_panel_,wxID_ANY,wxDefaultPosition,wxSize(200,200));
+    canvas_ = new PomodoroCanvas(right_panel_,&timer_);//hier ist point!
+    //canvas_ = new wxPanel(right_panel_,wxID_ANY,wxDefaultPosition,wxSize(200,200));
     sizer->Add(canvas_, 0, wxALIGN_CENTER | wxTOP, 14);
 
     //tomaten-punkte hinweis in PomodoroCanvas
@@ -166,7 +171,7 @@ void MainFrame::BuildRightPanel(wxSplitterWindow* splitter){
 
     };
 
-    void MainFrame::UpdateTaskDone(){
+    void MainFrame::UpdateTaskDone(){// taskdone label
         int done = 0;
         for(const auto& t: task_){
             if(t.is_done()==true) done++;
@@ -188,8 +193,127 @@ void MainFrame::BuildRightPanel(wxSplitterWindow* splitter){
     }
     void MainFrame::OnReset(wxCommandEvent& evt){
         timer_.Reset();
+        start_pause_btn_->SetLabel("Start");
     };
-    void MainFrame::OnTimer(wxTimerEvent& evt);//
-    void MainFrame::OnHistory(wxCommandEvent& evt);
+
+    void MainFrame::OnTimer(wxTimerEvent& evt){
+        //1. tick lauft einmal
+        //2.state_label_ aktual
+        //3.canvas_ aktual
+        //4.today_val_ aktual
+        //5.blinkt beim phasenende
+        bool phase_ended = timer_.Tick();
+
+        if(timer_.state() == TimerState::Work){
+            state_label_->SetLabel("Work-25:00");
+        }else if(timer_.state() == TimerState::LongBreak){
+            state_label_->SetLabel("Long-15:00");
+        }else state_label_->SetLabel("Short-5:00");
+
+        canvas_->Refresh();//!!!!!!!!!!!!!OnPaint() mit wxEVT_PAINT auslösen!!!!!!!!!!! manull auslösung!!!
+
+        today_val_->SetLabel(wxString(std::to_string(timer_.pomodoros_done())));
+
+        if(phase_ended){
+            RequestUserAttention(wxUSER_ATTENTION_INFO);//icon blinkt
+            for(int i=0;i<5;i++){
+                SetBackgroundColour(wxColour(226,75,74));//red
+                Refresh();                               //neu zeichnen
+                Update();                                //sofort aktualisieren
+                wxMilliSleep(200);                      //bleibt 0.2s
+                SetBackgroundColour(wxNullColour);
+                Refresh();
+                Update();
+                wxMilliSleep(200);
+            }
+            start_pause_btn_->SetLabel("Start");
+        }
+    };//
+
+    void MainFrame::OnHistory(wxCommandEvent& evt){//history dialog
+        std::vector<int> data = LoadHistory(); // 7 tage data
+
+        // total avg best in 7 tagen
+        int total = 0;
+        int best = 0;
+        for(int v : data){
+            total+=v;
+            if(v>best) best = v;
+        }
+        double avg = total/7.0;
+
+        wxDialog* dlg = new wxDialog(this, wxID_ANY,"7-days History",wxDefaultPosition, wxSize(300,400));
+        wxBoxSizer* sizer = new wxBoxSizer(wxVERTICAL);
+        
+        wxDateTime date = wxDateTime::Now();
+        date-=wxDateSpan::Days(6);//6 tage nach vorn verschoben
+        for(int i = 0; i <= 6; i++){
+            wxString label = (i == 6) ? "Today": date.Format("%a"); //wochenstag
+            wxString line = wxString::Format("%-6s: %d", label, data[i]);
+            wxStaticText* text = new wxStaticText(dlg,wxID_ANY,line);
+            sizer->Add(text,0,wxLEFT|wxTOP,14);
+            date+=wxDateSpan::Day();//nächster tag
+        }
+
+        sizer->Add(new wxStaticLine(dlg,wxID_ANY),0,wxEXPAND|wxALL,14);
+
+        wxString stats = wxString::Format("Total: %d   Avg: %.1f   Best: %d",total, avg, best);
+        wxStaticText* stats_label = new wxStaticText(dlg, wxID_ANY, stats,wxDefaultPosition,wxDefaultSize,wxALIGN_CENTER);
+       
+        sizer->Add(stats_label,0,wxALIGN_CENTER|wxALL,14);
+        
+        dlg->SetSizer(sizer);
+        dlg->ShowModal(); //dlg anzeigen, prozess blokieren
+        dlg->Destroy();//dlg löschen
+    };
+
+    std::vector<int> MainFrame::LoadHistory(){//return 7 tage data
+         wxDateTime date = wxDateTime::Now();
+        std::vector<int> result(7,0);//7 elemente je 0
+        for(int i = 6; i >= 0; i--){
+            wxString filename = date.Format("%Y-%m-%d") + ".txt";
+            std::ifstream file(filename.ToStdString());
+            if(file.is_open()){
+                file >> result[i];
+                file.close();
+            }
+            date-=wxDateSpan::Day();
+        }
+        return result;
+    };
+
+    void MainFrame::OnClose(wxCloseEvent& evt){ //bei jedem schliessen wird neuest gespeichert mit gleichem namen.txt
+        wxDateTime today = wxDateTime::Now(); //statische funktion von class wxDateTime gibt objct today
+        wxString filename = today.Format("%Y-%m-%d") + ".txt";
+
+        std::ofstream file(filename.ToStdString());
+        if(file.is_open()){
+            file<<timer_.pomodoros_done();
+            file.close();
+        }
+
+        evt.Skip(); //fenster wirklich schlissen
+    };
+
+    void MainFrame::CheckNewDay(){
+        std::string last_date; //lastdate vom lastopen bekommen
+        std::ifstream read_file("last_open.txt");
+        if(read_file.is_open()){
+            read_file>>last_date;
+            read_file.close();
+        }
+
+        wxDateTime today = wxDateTime::Now();
+        wxString today_str = today.Format("%Y-m%-d%");
+
+        if(last_date!=today_str.ToStdString()){
+            task_list_->Clear();//UI clear
+            task_.clear();      //vector clear
+        }
+
+        std::ofstream write_file("last_open.txt");
+        write_file << today_str.ToStdString();
+        write_file.close();
+    };
 }
 
