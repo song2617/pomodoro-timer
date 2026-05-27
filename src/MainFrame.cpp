@@ -210,7 +210,7 @@ void MainFrame::BuildRightPanel(wxSplitterWindow* splitter){
             state_label_->SetLabel("Long-15:00");
         }else state_label_->SetLabel("Short-5:00");
 
-        canvas_->Refresh();//!!!!!!!!!!!!!OnPaint() mit wxEVT_PAINT auslösen!!!!!!!!!!! manull auslösung!!!
+        canvas_->Refresh();//!!!!!!!!!!!!!PomodoroCanvas::OnPaint() mit wxEVT_PAINT auslösen!!!!!!!!!!! manull auslösung!!!
 
         today_val_->SetLabel(wxString(std::to_string(timer_.pomodoros_done())));
 
@@ -304,7 +304,7 @@ void MainFrame::BuildRightPanel(wxSplitterWindow* splitter){
         }
 
         wxDateTime today = wxDateTime::Now();
-        wxString today_str = today.Format("%Y-m%-d%");
+        wxString today_str = today.Format("%Y-%m-%d");
 
         if(last_date!=today_str.ToStdString()){
             task_list_->Clear();//UI clear

@@ -2,7 +2,7 @@
 
 namespace pomodoro{
 
-#ifdef DEGUG_MODE
+#ifdef DEBUG_MODE
     static constexpr int WORK_SECONDS = 25;
     static constexpr int SHORT_BREAK_SECONDS = 5;
     static constexpr int LONG_BREAK_SECONDS = 15;
