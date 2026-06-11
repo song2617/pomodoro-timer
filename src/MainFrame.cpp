@@ -14,7 +14,7 @@ MainFrame::MainFrame(const wxString& title)
         CheckNewDay();//beim nächsten tag clear die tasklist
 
         wx_timer_ = new wxTimer(this);
-        wx_timer_->Bind(wxEVT_TIMER, &MainFrame::OnTimer, this);
+        Bind(wxEVT_TIMER, &MainFrame::OnTimer, this);
         wx_timer_->Start(1000);
 
         Bind(wxEVT_CLOSE_WINDOW, &MainFrame::OnClose, this);//"X"drücken. es ist von system definiert, kein Button ist nötig.
