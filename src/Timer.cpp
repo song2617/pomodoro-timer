@@ -1,11 +1,12 @@
+#define DEBUG_MODE
 #include "Timer.hpp"
 
 namespace pomodoro{
 
 #ifdef DEBUG_MODE
-    static constexpr int WORK_SECONDS = 25;
-    static constexpr int SHORT_BREAK_SECONDS = 5;
-    static constexpr int LONG_BREAK_SECONDS = 15;
+    static constexpr int WORK_SECONDS = 10;
+    static constexpr int SHORT_BREAK_SECONDS = 2;
+    static constexpr int LONG_BREAK_SECONDS = 5;
 #else
     static constexpr int WORK_SECONDS = 25 * 60;
     static constexpr int SHORT_BREAK_SECONDS = 5 * 60;
@@ -27,6 +28,8 @@ bool Timer::Tick(){//jede 1. Sekunde aufgerufen.True zurückgegeben beim Änderu
     if(!is_running_||is_paused_) return false;
     seconds_left_--;
     if(seconds_left_>0) return false;
+
+    is_running_ = false;
 
     if(state_ == TimerState::Work){
         pomodoros_done_++;
@@ -54,5 +57,11 @@ bool Timer::is_running() const{return is_running_;}
 bool Timer::is_paused() const{return is_paused_;}
 int Timer::pomodoros_done() const{return pomodoros_done_;}
 int Timer::pomodoros_in_round() const{return pomodoros_in_round_;}
+
+int Timer::total_seconds() const {
+    if(state_ == TimerState::Work) return WORK_SECONDS;
+    else if(state_ == TimerState::LongBreak) return LONG_BREAK_SECONDS;
+    else return SHORT_BREAK_SECONDS;
+}
 
 }

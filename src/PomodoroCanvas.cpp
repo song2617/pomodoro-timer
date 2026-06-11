@@ -35,10 +35,7 @@ void PomodoroCanvas::DrawRing(wxAutoBufferedPaintDC& dc){
     else if(timer_->state()==TimerState::LongBreak) color = wxColor(55,138,221);
     else color = wxColor(99,153,34);
     // 2. totalle sekunden in aktueller phase
-    int total;
-    if(timer_->state()==TimerState::Work) total = 60 * 25;
-    else if(timer_->state()==TimerState::LongBreak) total = 60 * 15;
-    else total = 60 * 5;
+    int total = timer_->total_seconds();
     // 3. winkel von verbleibenden sekunden berechnen
     double ratio = (double)timer_->seconds_left()/total;
     double angle = 360.0 * ratio;
@@ -60,10 +57,10 @@ void PomodoroCanvas::DrawTime(wxAutoBufferedPaintDC& dc){
     int sec = s % 60;
     wxString time_str = wxString::Format("%02d:%02d", min, sec); 
 
-    dc.SetFont(wxFont(24, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL));// font setzen
+    dc.SetFont(wxFont(28, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL));// font setzen
     dc.SetTextForeground(wxColor(50,50,50));
     wxSize ts = dc.GetTextExtent(time_str);//wie viele pixes besitzt dieses time_str 
-    dc.DrawText(time_str, 110 - ts.GetWidth()/2, 90);
+    dc.DrawText(time_str, 110 - ts.GetWidth()/2, 70);
 
     //wörte zeichnen
     wxString sub;
@@ -72,15 +69,15 @@ void PomodoroCanvas::DrawTime(wxAutoBufferedPaintDC& dc){
     else if(timer_->state() == TimerState::LongBreak) sub = "Long Break";
     else sub = "Short Break";
 
-    dc.SetFont(wxFont(24, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL));
+    dc.SetFont(wxFont(14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL));
     dc.SetTextForeground(wxColor(150,150,150));
     wxSize ss = dc.GetTextExtent(sub);
-    dc.DrawText(sub, 110 - ss.GetWidth(),120);
+    dc.DrawText(sub, 110 - ss.GetWidth()/2,120);
 }
 
 void PomodoroCanvas::DrawDots(wxAutoBufferedPaintDC& dc){
     int done = timer_->pomodoros_in_round();
-    int cy = 210; //circle boden ist 110+80
+    int cy = 220; //circle boden ist 110+80
 
     for(int i = 0; i<4; i++){
         if(i < done){
@@ -91,7 +88,7 @@ void PomodoroCanvas::DrawDots(wxAutoBufferedPaintDC& dc){
             dc.SetBrush(*wxTRANSPARENT_BRUSH);
         }
 
-        dc.DrawCircle(60 + i*20, cy, 6);
+        dc.DrawCircle(80 + i*20, cy, 6);
     }
 }
 

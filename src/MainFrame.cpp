@@ -13,6 +13,16 @@ MainFrame::MainFrame(const wxString& title)
         splitter->SetMinimumPaneSize(265);
         CheckNewDay();//beim nächsten tag clear die tasklist
 
+        // 读取今天已完成的番茄数，接续计数
+        wxString today_file = wxDateTime::Now().Format("%Y-%m-%d") + ".txt";
+        std::ifstream tf(today_file.ToStdString());
+        if(tf.is_open()){
+            int n = 0;
+            tf >> n;
+            tf.close();
+            timer_.set_pomodoros_done(n);
+        }
+
         wx_timer_ = new wxTimer(this);
         Bind(wxEVT_TIMER, &MainFrame::OnTimer, this);
         wx_timer_->Start(1000);
@@ -46,11 +56,11 @@ void MainFrame::BuildLeftPanel(wxSplitterWindow* splitter){
 
     sizer->AddStretchSpacer(1);
 
-    //linke trennlinie
+    /*linke trennlinie
     wxStaticLine* line_1 = new wxStaticLine(left_panel_, wxID_ANY);
     sizer->Add(line_1, 0, wxEXPAND|wxTOP, 14);
-
-    //yesterday
+    */
+    /*yesterday
     yesterday_val_ = new wxStaticText(left_panel_, wxID_ANY, "0");
     wxStaticText* yesterday_lbl_ = new wxStaticText(left_panel_,wxID_ANY, "Yesterday");
     wxBoxSizer* yesterday_sizer = new wxBoxSizer(wxVERTICAL);
@@ -58,7 +68,7 @@ void MainFrame::BuildLeftPanel(wxSplitterWindow* splitter){
     yesterday_sizer->Add(yesterday_lbl_, 0);
 
     sizer->Add(yesterday_sizer, 0, wxALL, 14);
-
+    */
     //binden
      add_btn_->Bind(wxEVT_BUTTON, &MainFrame::OnAddTask, this);
      task_list_->Bind(wxEVT_LISTBOX, &MainFrame::OnSelectTask, this);
@@ -150,6 +160,7 @@ void MainFrame::BuildRightPanel(wxSplitterWindow* splitter){
         task_list_->Append(name);
         task_.push_back(Task(name.ToStdString()));
         task_input_->Clear();
+        UpdateTaskDone();
     };
 
     void MainFrame::OnDeleteTask(wxCommandEvent& evt){
@@ -158,6 +169,7 @@ void MainFrame::BuildRightPanel(wxSplitterWindow* splitter){
         task_list_->Delete(sel);
         task_.erase(task_.begin()+sel);
         selected_task_ = -1;
+        UpdateTaskDone();
     };
     void MainFrame::OnSelectTask(wxCommandEvent& evt){
         selected_task_ = task_list_->GetSelection(); // ausgewähltes index bekommen
@@ -215,17 +227,25 @@ void MainFrame::BuildRightPanel(wxSplitterWindow* splitter){
         today_val_->SetLabel(wxString(std::to_string(timer_.pomodoros_done())));
 
         if(phase_ended){
-            RequestUserAttention(wxUSER_ATTENTION_INFO);//icon blinkt
-            for(int i=0;i<5;i++){
-                SetBackgroundColour(wxColour(226,75,74));//red
-                Refresh();                               //neu zeichnen
-                Update();                                //sofort aktualisieren
-                wxMilliSleep(200);                      //bleibt 0.2s
-                SetBackgroundColour(wxNullColour);
-                Refresh();
-                Update();
-                wxMilliSleep(200);
+            RequestUserAttention(wxUSER_ATTENTION_INFO); // 任务栏闪烁（Windows有效）
+
+            wxString today_file = wxDateTime::Now().Format("%Y-%m-%d") + ".txt";
+            std::ofstream tf(today_file.ToStdString());
+            if(tf.is_open()){
+                tf << timer_.pomodoros_done();
+                tf.close();
             }
+    // 弹出提示对话框
+            wxString msg;
+            if(timer_.state() == TimerState::Work)
+                msg = "Break is over! Time to work.";       // 休息结束
+            else if(timer_.state() == TimerState::ShortBreak)
+                msg = "Work done! Take a short break.";      // 进入短休息
+            else
+                msg = "Great! Take a long break.";           // 进入长休息
+    
+            wxMessageBox(msg, "Pomodoro", wxOK | wxICON_INFORMATION);
+    
             start_pause_btn_->SetLabel("Start");
         }
     };//
@@ -271,6 +291,9 @@ void MainFrame::BuildRightPanel(wxSplitterWindow* splitter){
          wxDateTime date = wxDateTime::Now();
         std::vector<int> result(7,0);//7 elemente je 0
         for(int i = 6; i >= 0; i--){
+            if(i == 6){
+                result[i] = timer_.pomodoros_done();
+            }
             wxString filename = date.Format("%Y-%m-%d") + ".txt";
             std::ifstream file(filename.ToStdString());
             if(file.is_open()){

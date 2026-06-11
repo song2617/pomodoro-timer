@@ -22,7 +22,7 @@ private:
     wxButton* add_btn_;
     wxButton* delete_btn_;
     wxCheckListBox* task_list_;
-    wxStaticText* yesterday_val_;
+    //wxStaticText* yesterday_val_;
 
     wxPanel* right_panel_;
 

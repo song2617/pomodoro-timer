@@ -39,6 +39,9 @@ public:
     int pomodoros_done() const;
     int pomodoros_in_round() const;
 
+    int total_seconds() const; // 当前阶段的总秒数
+    void set_pomodoros_done(int n){pomodoros_done_ = n;}
+
 private:
     TimerState state_ = TimerState::Work;
     int seconds_left_ = 0;
