@@ -30,9 +30,13 @@ The core idea: human attention cannot stay focused for long stretches. Instead o
 
 ## Screenshots
 
-| Work phase | Short break |Long break |
-|------------|-------------|-----------|
-| ![Work](images/work.png) | ![Break](images/short.png) | ![Break](images/long.png) |
+| Work phase |
+|------------|
+| ![Work](images/work.png) |
+
+| Short break |Long break |
+|-------------|-----------|
+| ![Break](images/short.png) | ![Break](images/long.png) |
 
 | History | Notification |
 |---------|--------------|
