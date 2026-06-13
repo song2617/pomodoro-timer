@@ -4,9 +4,9 @@
 namespace pomodoro{
 
 #ifdef DEBUG_MODE
-    static constexpr int WORK_SECONDS = 10;
-    static constexpr int SHORT_BREAK_SECONDS = 2;
-    static constexpr int LONG_BREAK_SECONDS = 5;
+    static constexpr int WORK_SECONDS = 25;
+    static constexpr int SHORT_BREAK_SECONDS = 5;
+    static constexpr int LONG_BREAK_SECONDS = 15;
 #else
     static constexpr int WORK_SECONDS = 25 * 60;
     static constexpr int SHORT_BREAK_SECONDS = 5 * 60;
