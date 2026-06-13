@@ -8,7 +8,7 @@ A desktop productivity timer built with C++ and wxWidgets, based on the Pomodoro
 
 The Pomodoro Technique is a time-management method developed by Francesco Cirillo in the late 1980s. The name comes from the Italian word for "tomato", inspired by the tomato-shaped kitchen timer Cirillo used as a student.
 
-The core idea: human attention cannot stay focused for long stretches. Instead of working for hours without a break, work is split into focused 25-minute intervals ("Pomodoros") separated by short breaks.
+The core idea: human attention cannot stay focused for long stretches. Instead of working for hours without a break, work is split into focused 25-minute intervals ("Pomodoros") separated by breaks.
 
 **How it works:**
 1. Choose a task from the list.
@@ -25,7 +25,7 @@ The core idea: human attention cannot stay focused for long stretches. Instead o
 - **Pomodoro counter** – four dots show the progress within the current round.
 - **Daily statistics** – the number of Pomodoros completed today and the number of finished tasks are always visible.
 - **7-day history** – a separate window lists the Pomodoros completed on each of the last 7 days, with total, average and best-day statistics.
-- **Persistent data** – completed Pomodoros and the task list are saved to disk and restored on the next start. The task list is cleared automatically at the start of a new day.
+- **Persistent data** – completed Pomodoros are saved to disk and restored on the next start.
 - **End-of-phase notification** – when a phase ends, a message box informs the user.
 
 ## Screenshots
