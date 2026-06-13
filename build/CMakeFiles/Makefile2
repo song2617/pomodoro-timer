@@ -64,6 +64,8 @@ CMAKE_BINARY_DIR = /home/songjin/pomodoro-timer/build
 
 # The main recursive "all" target.
 all: CMakeFiles/PomodoroTimer.dir/all
+all: CMakeFiles/test_task.dir/all
+all: CMakeFiles/test_timer.dir/all
 .PHONY : all
 
 # The main recursive "preinstall" target.
@@ -72,6 +74,8 @@ preinstall:
 
 # The main recursive "clean" target.
 clean: CMakeFiles/PomodoroTimer.dir/clean
+clean: CMakeFiles/test_task.dir/clean
+clean: CMakeFiles/test_timer.dir/clean
 .PHONY : clean
 
 #=============================================================================
@@ -99,6 +103,58 @@ PomodoroTimer: CMakeFiles/PomodoroTimer.dir/rule
 CMakeFiles/PomodoroTimer.dir/clean:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/PomodoroTimer.dir/build.make CMakeFiles/PomodoroTimer.dir/clean
 .PHONY : CMakeFiles/PomodoroTimer.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/test_task.dir
+
+# All Build rule for target.
+CMakeFiles/test_task.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_task.dir/build.make CMakeFiles/test_task.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_task.dir/build.make CMakeFiles/test_task.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/songjin/pomodoro-timer/build/CMakeFiles --progress-num=7,8,9 "Built target test_task"
+.PHONY : CMakeFiles/test_task.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/test_task.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/songjin/pomodoro-timer/build/CMakeFiles 3
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/test_task.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/songjin/pomodoro-timer/build/CMakeFiles 0
+.PHONY : CMakeFiles/test_task.dir/rule
+
+# Convenience name for target.
+test_task: CMakeFiles/test_task.dir/rule
+.PHONY : test_task
+
+# clean rule for target.
+CMakeFiles/test_task.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_task.dir/build.make CMakeFiles/test_task.dir/clean
+.PHONY : CMakeFiles/test_task.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/test_timer.dir
+
+# All Build rule for target.
+CMakeFiles/test_timer.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_timer.dir/build.make CMakeFiles/test_timer.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_timer.dir/build.make CMakeFiles/test_timer.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/songjin/pomodoro-timer/build/CMakeFiles --progress-num=10,11,12 "Built target test_timer"
+.PHONY : CMakeFiles/test_timer.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/test_timer.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/songjin/pomodoro-timer/build/CMakeFiles 3
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/test_timer.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/songjin/pomodoro-timer/build/CMakeFiles 0
+.PHONY : CMakeFiles/test_timer.dir/rule
+
+# Convenience name for target.
+test_timer: CMakeFiles/test_timer.dir/rule
+.PHONY : test_timer
+
+# clean rule for target.
+CMakeFiles/test_timer.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_timer.dir/build.make CMakeFiles/test_timer.dir/clean
+.PHONY : CMakeFiles/test_timer.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

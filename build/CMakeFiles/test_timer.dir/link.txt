@@ -1,0 +1,1 @@
+/usr/bin/c++  -pthread CMakeFiles/test_timer.dir/tests/test_timer.cpp.o CMakeFiles/test_timer.dir/src/Timer.cpp.o -o test_timer   -L/usr/local/lib 

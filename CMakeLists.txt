@@ -22,3 +22,7 @@ set(SOURCES
 # 可执行文件
 add_executable(PomodoroTimer ${SOURCES})
 target_link_libraries(PomodoroTimer ${wxWidgets_LIBRARIES})
+
+# 测试程序（纯逻辑，不依赖 wxWidgets）
+add_executable(test_task tests/test_task.cpp src/Task.cpp)
+add_executable(test_timer tests/test_timer.cpp src/Timer.cpp)

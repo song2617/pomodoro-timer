@@ -1,3 +1,5 @@
 /home/songjin/pomodoro-timer/build/CMakeFiles/PomodoroTimer.dir
+/home/songjin/pomodoro-timer/build/CMakeFiles/test_task.dir
+/home/songjin/pomodoro-timer/build/CMakeFiles/test_timer.dir
 /home/songjin/pomodoro-timer/build/CMakeFiles/edit_cache.dir
 /home/songjin/pomodoro-timer/build/CMakeFiles/rebuild_cache.dir

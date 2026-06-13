@@ -129,6 +129,32 @@ PomodoroTimer/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/PomodoroTimer.dir/build.make CMakeFiles/PomodoroTimer.dir/build
 .PHONY : PomodoroTimer/fast
 
+#=============================================================================
+# Target rules for targets named test_task
+
+# Build rule for target.
+test_task: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_task
+.PHONY : test_task
+
+# fast build rule for target.
+test_task/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_task.dir/build.make CMakeFiles/test_task.dir/build
+.PHONY : test_task/fast
+
+#=============================================================================
+# Target rules for targets named test_timer
+
+# Build rule for target.
+test_timer: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_timer
+.PHONY : test_timer
+
+# fast build rule for target.
+test_timer/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_timer.dir/build.make CMakeFiles/test_timer.dir/build
+.PHONY : test_timer/fast
+
 src/MainFrame.o: src/MainFrame.cpp.o
 .PHONY : src/MainFrame.o
 
@@ -183,6 +209,7 @@ src/Task.o: src/Task.cpp.o
 # target to build an object file
 src/Task.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/PomodoroTimer.dir/build.make CMakeFiles/PomodoroTimer.dir/src/Task.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_task.dir/build.make CMakeFiles/test_task.dir/src/Task.cpp.o
 .PHONY : src/Task.cpp.o
 
 src/Task.i: src/Task.cpp.i
@@ -191,6 +218,7 @@ src/Task.i: src/Task.cpp.i
 # target to preprocess a source file
 src/Task.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/PomodoroTimer.dir/build.make CMakeFiles/PomodoroTimer.dir/src/Task.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_task.dir/build.make CMakeFiles/test_task.dir/src/Task.cpp.i
 .PHONY : src/Task.cpp.i
 
 src/Task.s: src/Task.cpp.s
@@ -199,6 +227,7 @@ src/Task.s: src/Task.cpp.s
 # target to generate assembly for a file
 src/Task.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/PomodoroTimer.dir/build.make CMakeFiles/PomodoroTimer.dir/src/Task.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_task.dir/build.make CMakeFiles/test_task.dir/src/Task.cpp.s
 .PHONY : src/Task.cpp.s
 
 src/Timer.o: src/Timer.cpp.o
@@ -207,6 +236,7 @@ src/Timer.o: src/Timer.cpp.o
 # target to build an object file
 src/Timer.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/PomodoroTimer.dir/build.make CMakeFiles/PomodoroTimer.dir/src/Timer.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_timer.dir/build.make CMakeFiles/test_timer.dir/src/Timer.cpp.o
 .PHONY : src/Timer.cpp.o
 
 src/Timer.i: src/Timer.cpp.i
@@ -215,6 +245,7 @@ src/Timer.i: src/Timer.cpp.i
 # target to preprocess a source file
 src/Timer.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/PomodoroTimer.dir/build.make CMakeFiles/PomodoroTimer.dir/src/Timer.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_timer.dir/build.make CMakeFiles/test_timer.dir/src/Timer.cpp.i
 .PHONY : src/Timer.cpp.i
 
 src/Timer.s: src/Timer.cpp.s
@@ -223,6 +254,7 @@ src/Timer.s: src/Timer.cpp.s
 # target to generate assembly for a file
 src/Timer.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/PomodoroTimer.dir/build.make CMakeFiles/PomodoroTimer.dir/src/Timer.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_timer.dir/build.make CMakeFiles/test_timer.dir/src/Timer.cpp.s
 .PHONY : src/Timer.cpp.s
 
 src/app.o: src/app.cpp.o
@@ -249,6 +281,54 @@ src/app.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/PomodoroTimer.dir/build.make CMakeFiles/PomodoroTimer.dir/src/app.cpp.s
 .PHONY : src/app.cpp.s
 
+tests/test_task.o: tests/test_task.cpp.o
+.PHONY : tests/test_task.o
+
+# target to build an object file
+tests/test_task.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_task.dir/build.make CMakeFiles/test_task.dir/tests/test_task.cpp.o
+.PHONY : tests/test_task.cpp.o
+
+tests/test_task.i: tests/test_task.cpp.i
+.PHONY : tests/test_task.i
+
+# target to preprocess a source file
+tests/test_task.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_task.dir/build.make CMakeFiles/test_task.dir/tests/test_task.cpp.i
+.PHONY : tests/test_task.cpp.i
+
+tests/test_task.s: tests/test_task.cpp.s
+.PHONY : tests/test_task.s
+
+# target to generate assembly for a file
+tests/test_task.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_task.dir/build.make CMakeFiles/test_task.dir/tests/test_task.cpp.s
+.PHONY : tests/test_task.cpp.s
+
+tests/test_timer.o: tests/test_timer.cpp.o
+.PHONY : tests/test_timer.o
+
+# target to build an object file
+tests/test_timer.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_timer.dir/build.make CMakeFiles/test_timer.dir/tests/test_timer.cpp.o
+.PHONY : tests/test_timer.cpp.o
+
+tests/test_timer.i: tests/test_timer.cpp.i
+.PHONY : tests/test_timer.i
+
+# target to preprocess a source file
+tests/test_timer.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_timer.dir/build.make CMakeFiles/test_timer.dir/tests/test_timer.cpp.i
+.PHONY : tests/test_timer.cpp.i
+
+tests/test_timer.s: tests/test_timer.cpp.s
+.PHONY : tests/test_timer.s
+
+# target to generate assembly for a file
+tests/test_timer.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_timer.dir/build.make CMakeFiles/test_timer.dir/tests/test_timer.cpp.s
+.PHONY : tests/test_timer.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -258,6 +338,8 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... PomodoroTimer"
+	@echo "... test_task"
+	@echo "... test_timer"
 	@echo "... src/MainFrame.o"
 	@echo "... src/MainFrame.i"
 	@echo "... src/MainFrame.s"
@@ -273,6 +355,12 @@ help:
 	@echo "... src/app.o"
 	@echo "... src/app.i"
 	@echo "... src/app.s"
+	@echo "... tests/test_task.o"
+	@echo "... tests/test_task.i"
+	@echo "... tests/test_task.s"
+	@echo "... tests/test_timer.o"
+	@echo "... tests/test_timer.i"
+	@echo "... tests/test_timer.s"
 .PHONY : help
 
 

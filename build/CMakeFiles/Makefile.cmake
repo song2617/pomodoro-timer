@@ -48,4 +48,6 @@ set(CMAKE_MAKEFILE_PRODUCTS
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/PomodoroTimer.dir/DependInfo.cmake"
+  "CMakeFiles/test_task.dir/DependInfo.cmake"
+  "CMakeFiles/test_timer.dir/DependInfo.cmake"
   )

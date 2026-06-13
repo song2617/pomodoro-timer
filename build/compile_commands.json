@@ -23,5 +23,25 @@
   "directory": "/home/songjin/pomodoro-timer/build",
   "command": "/usr/bin/c++ -DWXUSINGDLL -D_FILE_OFFSET_BITS=64 -D__WXGTK3__ -D__WXGTK__ -isystem /usr/local/lib/wx/include/gtk3-unicode-3.2 -isystem /usr/local/include/wx-3.2  -pthread -std=gnu++17 -o CMakeFiles/PomodoroTimer.dir/src/Task.cpp.o -c /home/songjin/pomodoro-timer/src/Task.cpp",
   "file": "/home/songjin/pomodoro-timer/src/Task.cpp"
+},
+{
+  "directory": "/home/songjin/pomodoro-timer/build",
+  "command": "/usr/bin/c++ -DWXUSINGDLL -D_FILE_OFFSET_BITS=64 -D__WXGTK3__ -D__WXGTK__ -isystem /usr/local/lib/wx/include/gtk3-unicode-3.2 -isystem /usr/local/include/wx-3.2  -pthread -std=gnu++17 -o CMakeFiles/test_task.dir/tests/test_task.cpp.o -c /home/songjin/pomodoro-timer/tests/test_task.cpp",
+  "file": "/home/songjin/pomodoro-timer/tests/test_task.cpp"
+},
+{
+  "directory": "/home/songjin/pomodoro-timer/build",
+  "command": "/usr/bin/c++ -DWXUSINGDLL -D_FILE_OFFSET_BITS=64 -D__WXGTK3__ -D__WXGTK__ -isystem /usr/local/lib/wx/include/gtk3-unicode-3.2 -isystem /usr/local/include/wx-3.2  -pthread -std=gnu++17 -o CMakeFiles/test_task.dir/src/Task.cpp.o -c /home/songjin/pomodoro-timer/src/Task.cpp",
+  "file": "/home/songjin/pomodoro-timer/src/Task.cpp"
+},
+{
+  "directory": "/home/songjin/pomodoro-timer/build",
+  "command": "/usr/bin/c++ -DWXUSINGDLL -D_FILE_OFFSET_BITS=64 -D__WXGTK3__ -D__WXGTK__ -isystem /usr/local/lib/wx/include/gtk3-unicode-3.2 -isystem /usr/local/include/wx-3.2  -pthread -std=gnu++17 -o CMakeFiles/test_timer.dir/tests/test_timer.cpp.o -c /home/songjin/pomodoro-timer/tests/test_timer.cpp",
+  "file": "/home/songjin/pomodoro-timer/tests/test_timer.cpp"
+},
+{
+  "directory": "/home/songjin/pomodoro-timer/build",
+  "command": "/usr/bin/c++ -DWXUSINGDLL -D_FILE_OFFSET_BITS=64 -D__WXGTK3__ -D__WXGTK__ -isystem /usr/local/lib/wx/include/gtk3-unicode-3.2 -isystem /usr/local/include/wx-3.2  -pthread -std=gnu++17 -o CMakeFiles/test_timer.dir/src/Timer.cpp.o -c /home/songjin/pomodoro-timer/src/Timer.cpp",
+  "file": "/home/songjin/pomodoro-timer/src/Timer.cpp"
 }
 ]
