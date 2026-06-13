@@ -91,8 +91,6 @@ Each test program prints `All ... tests passed!` if every assertion succeeds.
 
 ## User Manual
 
-![Annotated interface](images/main.png)
-
 ### Managing tasks
 
 - Type a task name into the input field at the top left and press the **+** button to add it.
