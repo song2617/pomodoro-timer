@@ -87,18 +87,10 @@ void MainFrame::BuildRightPanel(wxSplitterWindow* splitter){
     //obere zeile
     wxBoxSizer* top_sizer = new wxBoxSizer(wxHORIZONTAL);
     state_label_ = new wxStaticText(right_panel_, wxID_ANY, "Work-25:00");
-    wxStaticText* legend_work  = new wxStaticText(right_panel_, wxID_ANY, "● Work");   // Rote Legende für Arbeitszeit
-    wxStaticText* legend_short = new wxStaticText(right_panel_, wxID_ANY, "● Short");  // Grüne Legende für kurze Pause
-    wxStaticText* legend_long  = new wxStaticText(right_panel_, wxID_ANY, "● Long");   // Blaue Legende für lange Pause
-    legend_work->SetForegroundColour(wxColour(226, 75, 74));                            // Rote Farbe für Arbeitszeit
-    legend_short->SetForegroundColour(wxColour(99, 153, 34));                           // Grüne Farbe für kurze Pause
-    legend_long->SetForegroundColour(wxColour(55, 138, 221));                           // Blaue Farbe für lange Pause
            
     history_btn_ = new wxButton(right_panel_, wxID_ANY, "...", wxDefaultPosition, wxDefaultSize);
     top_sizer->Add(state_label_, 0, wxALIGN_CENTER_VERTICAL | wxLEFT, 14);
-    top_sizer->Add(legend_work,  0, wxALIGN_CENTER_VERTICAL | wxLEFT, 10);             // Rote Legende, 10px Abstand links
-    top_sizer->Add(legend_short, 0, wxALIGN_CENTER_VERTICAL | wxLEFT, 6);              // Grüne Legende, 6px Abstand links
-    top_sizer->Add(legend_long,  0, wxALIGN_CENTER_VERTICAL | wxLEFT, 6); 
+    
     top_sizer->AddStretchSpacer(1);                                                     //  stretchspace schiebt die beiden teile an die seite  
     top_sizer->Add(history_btn_, 0, wxALIGN_CENTER_VERTICAL | wxLEFT, 28);
     sizer->Add(top_sizer, 0, wxEXPAND | wxTOP, 14);             // Blaue Legende, 6px Abstand links
