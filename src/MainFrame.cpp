@@ -86,11 +86,10 @@ void MainFrame::BuildRightPanel(wxSplitterWindow* splitter){
 
     //obere zeile
     wxBoxSizer* top_sizer = new wxBoxSizer(wxHORIZONTAL);
-    state_label_ = new wxStaticText(right_panel_, wxID_ANY, "Work-25:00");
-           
+    state_label_ = new wxStaticText(right_panel_, wxID_ANY, "Work-25:00");     
     history_btn_ = new wxButton(right_panel_, wxID_ANY, "...", wxDefaultPosition, wxDefaultSize);
     top_sizer->Add(state_label_, 0, wxALIGN_CENTER_VERTICAL | wxLEFT, 14);
-    
+
     top_sizer->AddStretchSpacer(1);                                                     //  stretchspace schiebt die beiden teile an die seite  
     top_sizer->Add(history_btn_, 0, wxALIGN_CENTER_VERTICAL | wxLEFT, 28);
     sizer->Add(top_sizer, 0, wxEXPAND | wxTOP, 14);             // Blaue Legende, 6px Abstand links
@@ -221,7 +220,7 @@ void MainFrame::BuildRightPanel(wxSplitterWindow* splitter){
         if(phase_ended){
             RequestUserAttention(wxUSER_ATTENTION_INFO); // 任务栏闪烁（Windows有效）
 
-            wxString today_file = wxDateTime::Now().Format("%Y-%m-%d") + ".txt";
+            wxString today_file = wxDateTime::Now().Format("%Y-%m-%d") + ".txt";//rechtzeitlich today_file aktualisieren
             std::ofstream tf(today_file.ToStdString());
             if(tf.is_open()){
                 tf << timer_.pomodoros_done();
@@ -261,7 +260,7 @@ void MainFrame::BuildRightPanel(wxSplitterWindow* splitter){
         date-=wxDateSpan::Days(6);//6 tage nach vorn verschoben
         for(int i = 0; i <= 6; i++){
             wxString label = (i == 6) ? "Today": date.Format("%a"); //wochenstag
-            wxString line = wxString::Format("%-6s: %d", label, data[i]);
+            wxString line = wxString::Format("%-6s: %d", label, data[i]);//ganz links , min 6 
             wxStaticText* text = new wxStaticText(dlg,wxID_ANY,line);
             sizer->Add(text,0,wxLEFT|wxTOP,14);
             date+=wxDateSpan::Day();//nächster tag
@@ -285,12 +284,13 @@ void MainFrame::BuildRightPanel(wxSplitterWindow* splitter){
         for(int i = 6; i >= 0; i--){
             if(i == 6){
                 result[i] = timer_.pomodoros_done();
-            }
-            wxString filename = date.Format("%Y-%m-%d") + ".txt";
-            std::ifstream file(filename.ToStdString());
-            if(file.is_open()){
-                file >> result[i];
-                file.close();
+            }else{
+                wxString filename = date.Format("%Y-%m-%d") + ".txt";
+                std::ifstream file(filename.ToStdString());
+                if(file.is_open()){
+                    file >> result[i];
+                    file.close();
+                }
             }
             date-=wxDateSpan::Day();
         }
